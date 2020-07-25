@@ -5,6 +5,7 @@ import ActiveChatPage from '../pages/active-chat/ActiveChatPage'
 import ProfilePage from '../pages/profile/ProfilePage'
 import SettingsPage from '../pages/settings/SettingsPage'
 import LoginPage from "../pages/login/LoginPage";
+import SignupPage from "../pages/signup/SignupPage";
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'LoginPage',
     component: LoginPage
+  },
+  {
+    path: '/signup',
+    name: 'SignupPage',
+    component: SignupPage
   },
   {
     path: '/chat',

@@ -1,10 +1,12 @@
 <template>
     <v-app>
-
         <v-main>
+        <v-app-bar v-if="user">
+            Hello, {{ user.nickname }}
+        </v-app-bar>
             <router-view></router-view>
         </v-main>
-        <BottomNavigation v-if="showBottomNavigation"/>
+        <BottomNavigation v-if="user && showBottomNavigation"/>
     </v-app>
 </template>
 
@@ -37,6 +39,14 @@
             ...mapState("user", {
                 user: "active"
             })
+        },
+        watch: {
+            user(val) {
+                val
+                    ? this.$router.push("/")
+                    : this.$router.push("/login")
+
+            }
         }
     };
 </script>

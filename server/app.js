@@ -1,12 +1,19 @@
-const config = require("./config");
+require("./config");
 
-const app = require('express')();
+const express = require("express");
+const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
+
+app.use("/api", require("./api"))
 
 io.on('connection', (socket) => {
     io.emit('chat message', "++++++ A new user joined the chat");
@@ -29,6 +36,4 @@ io.on('connection', (socket) => {
 });
 
 
-http.listen(config.PORT, () => {
-    console.log(`listening on http://localhost:${config.PORT}`);
-});
+module.exports = app;
