@@ -1,0 +1,1 @@
+export const M_LOGOUT = "M_LOGOUT";

@@ -1,0 +1,43 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import ChatsPage from '../pages/chats/ChatsPage'
+import ActiveChatPage from '../pages/active-chat/ActiveChatPage'
+import ProfilePage from '../pages/profile/ProfilePage'
+import SettingsPage from '../pages/settings/SettingsPage'
+import LoginPage from "../pages/login/LoginPage";
+
+Vue.use(VueRouter)
+
+  const routes = [
+  {
+    path: '/',
+    name: 'ChatsPage',
+    component: ChatsPage
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage
+  },
+  {
+    path: '/chat',
+    name: 'ActiveChatPage',
+    component: ActiveChatPage
+  },
+  {
+    path: '/profile',
+    name: 'ProfilePage',
+    component: ProfilePage
+  },
+  {
+    path: '/settings',
+    name: 'SettingsPage',
+    component: SettingsPage
+  },
+]
+
+const router = new VueRouter({
+  routes
+})
+
+export default router
