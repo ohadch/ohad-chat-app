@@ -10,70 +10,50 @@
                     v-text="'Conversations'"
             ></v-subheader>
 
-            <template v-for="(item, index) in items">
+            <template v-for="(conversation, index) in conversations">
 
                 <v-list-item
-                        :key="item.title"
-                        @click="onConversationSelected"
+                        :key="conversation.user"
+                        @click="onConversationSelected(conversation)"
                 >
                     <v-list-item-avatar>
-                        <v-img :src="item.avatar"></v-img>
+                        <v-img :src="conversation.avatar"></v-img>
                     </v-list-item-avatar>
 
                     <v-list-item-content>
-                        <v-list-item-title v-html="item.title"></v-list-item-title>
-                        <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                        <v-list-item-title v-html="conversation.user"></v-list-item-title>
+                        <v-list-item-subtitle v-html="conversation.messages[conversation.messages.length - 1]"></v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
 
 
                 <v-divider
                         :key="index"
-                        :inset="item.inset"
+                        :inset="conversations.inset"
                 ></v-divider>
 
             </template>
         </v-list>
     </v-card>
 </template>
-
+0
 <script>
+    import { mapState } from "vuex";
+
+    import {M_SET_SELECTED} from "../../../store/mutations/conversation.mutations";
+    import {A_FETCH_CONVERSATIONS} from "../../../store/actions/conversation.actions";
+
     export default {
         name: "ConversationsList",
-        data() {
-            return {
-                items: [
-                    {
-                        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-                        title: 'John Doe',
-                        subtitle: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?",
-                    },
-                    {
-                        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-                        title: 'Lavender Brown',
-                        subtitle: "Have any ideas about what we should get Heidi for her birthday?",
-                    },
-                    {
-                        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-                        title: 'Ronald Weasley <span class="grey--text text--lighten-1">4</span>',
-                        subtitle: "Wish I could come, but I'm out of town this weekend.",
-                    },
-                    {
-                        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-                        title: 'Miley',
-                        subtitle: "Do you have Paris recommendations? Have you ever been?",
-                    },
-                    {
-                        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-                        title: 'Ali Express',
-                        subtitle: "We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
-                    },
-                ],
-            }
+        async mounted() {
+            await this.$store.dispatch(`conversation/${A_FETCH_CONVERSATIONS}`);
+        },
+        computed: {
+            ...mapState("conversation", ["conversations"])
         },
         methods: {
-            onConversationSelected() {
-                alert("Not implemented")
+            onConversationSelected(conversation) {
+                this.$store.commit(`conversation/${M_SET_SELECTED}`, conversation)
             }
         }
     }
