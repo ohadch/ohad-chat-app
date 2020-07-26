@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation style="padding: 10px;" grow>
+  <v-bottom-navigation style="padding: 10px; background: #ECDBBD;" grow>
     <v-btn to="/profile">
       <span>Profile</span>
       <v-icon>mdi-account</v-icon>

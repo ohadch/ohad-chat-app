@@ -1,14 +1,6 @@
 <template>
     <v-app>
         <v-main>
-        <v-app-bar v-if="user" class="primary">
-            Hello, {{ user.nickname }}
-            <v-spacer />
-            <v-btn>
-                 <v-icon>mdi-plus</v-icon>
-                 <v-icon>mdi-chat</v-icon>
-            </v-btn>
-        </v-app-bar>
             <router-view></router-view>
         </v-main>
         <BottomNavigation v-if="user"/>
