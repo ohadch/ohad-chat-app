@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ChatsPage from '../pages/chats/ChatsPage'
-import ActiveChatPage from '../pages/active-chat/ActiveChatPage'
 import ProfilePage from '../pages/profile/ProfilePage'
 import SettingsPage from '../pages/settings/SettingsPage'
 import LoginPage from "../pages/login/LoginPage";
@@ -24,11 +23,6 @@ Vue.use(VueRouter)
     path: '/signup',
     name: 'SignupPage',
     component: SignupPage
-  },
-  {
-    path: '/chat',
-    name: 'ActiveChatPage',
-    component: ActiveChatPage
   },
   {
     path: '/profile',
