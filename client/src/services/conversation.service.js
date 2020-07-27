@@ -2,32 +2,47 @@ export default {
     getConversations
 }
 
+const AUTHENTICATED_USER = "authenticated_user"
+
+function createMessages(userA, userB, numMessages) {
+    const sentBy = Math.random() > 0.3 ? userA : userB;
+    return [...Array(numMessages).keys()].map(idx => ({
+        userA,
+        userB,
+        sentAt: new Date(),
+        sentBy,
+        text: `${sentBy} sent Message ${idx}`
+    }))
+}
+
+const CONVERSATIONS = [
+    {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        user: 'John Doe',
+        messages: createMessages('John Doe', AUTHENTICATED_USER, 10),
+    },
+    {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+        user: 'Lavender Brown',
+        messages: createMessages('Lavender Brown', AUTHENTICATED_USER, 10),
+    },
+    {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+        user: 'Ronald Weasley',
+        messages: createMessages('Ronald Weasley', AUTHENTICATED_USER, 10),
+    },
+    {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+        user: 'Miley',
+        messages: createMessages('Miley', AUTHENTICATED_USER, 10),
+    },
+    {
+        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+        user: 'Ali Express',
+        messages: createMessages('Ali Express', AUTHENTICATED_USER, 10),
+    },
+]
+
 async function getConversations() {
-    return [
-        {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            user: 'John Doe',
-            messages: ["I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"],
-        },
-        {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-            user: 'Lavender Brown',
-            messages: ["Have any ideas about what we should get Heidi for her birthday?"],
-        },
-        {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-            user: 'Ronald Weasley',
-            messages: ["Wish I could come, but I'm out of town this weekend."],
-        },
-        {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-            user: 'Miley',
-            messages: ["Do you have Paris recommendations? Have you ever been?"],
-        },
-        {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-            user: 'Ali Express',
-            messages: ["We should eat this: Grate, Squash, Corn, and tomatillo Tacos."],
-        },
-    ]
+    return CONVERSATIONS
 }
