@@ -2,17 +2,21 @@ export default {
     getConversations
 }
 
-const AUTHENTICATED_USER = "authenticated_user"
+const AUTHENTICATED_USER = "me"
 
 function createMessages(userA, userB, numMessages) {
-    const sentBy = Math.random() > 0.3 ? userA : userB;
-    return [...Array(numMessages).keys()].map(idx => ({
-        userA,
-        userB,
-        sentAt: new Date(),
-        sentBy,
-        text: `${sentBy} sent Message ${idx}`
-    }))
+    return [...Array(numMessages).keys()].map(idx => {
+        const sentBy = Math.random() > 0.3 ? userA : userB;
+
+        return {
+            _id: idx,
+            userA,
+            userB,
+            sentAt: new Date(),
+            sentBy,
+            text: `${sentBy} sent Message ${idx}`
+        }
+    })
 }
 
 const CONVERSATIONS = [

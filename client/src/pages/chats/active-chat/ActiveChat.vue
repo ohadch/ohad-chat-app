@@ -13,7 +13,7 @@
                     </v-toolbar-title>
                 </v-toolbar>
                 <v-flex style="padding: 10px;">
-                    henlo
+                    <MessageBubble v-for="message in messages" :key="message.id" :message="message" />
                 </v-flex>
                 <ChatInput/>
         </v-layout>
@@ -26,16 +26,21 @@
 <script>
     import {mapState} from "vuex";
     import ChatInput from "./components/ChatInput";
+    import MessageBubble from "./components/MessageBubble";
 
     export default {
-        name: "ActiveChatPage",
+        name: "ActiveChat",
         components: {
+            MessageBubble,
             ChatInput
         },
         computed: {
             ...mapState("conversation", {
                 conversation: "selected"
-            })
+            }),
+            messages() {
+                return this.conversation && this.conversation.messages;
+            }
         }
     }
 </script>
