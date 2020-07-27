@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
     text: {type: String, nullable: false},
+    sentBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     sentAt: String,
     receivedAt: String,
     seenAt: String
