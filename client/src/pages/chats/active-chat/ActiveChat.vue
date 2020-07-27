@@ -12,12 +12,12 @@
                         {{ conversation.user }}
                     </v-toolbar-title>
                 </v-toolbar>
-                <v-layout fill-height>
+                <v-flex style="padding: 10px;">
                     henlo
-                </v-layout>
+                </v-flex>
                 <ChatInput/>
         </v-layout>
-        <v-layout v-else>
+        <v-layout v-else style="padding: 10px;">
             No conversation is selected
         </v-layout>
     </fragment>
