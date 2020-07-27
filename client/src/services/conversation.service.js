@@ -10,8 +10,6 @@ function createMessages(userA, userB, numMessages) {
 
         return {
             _id: idx,
-            userA,
-            userB,
             sentAt: new Date(),
             sentBy,
             text: `${sentBy} sent Message ${idx}`
