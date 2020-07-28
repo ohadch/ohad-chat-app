@@ -9,11 +9,16 @@
                     style="background: #ECDBBD"
                     v-text="'Conversations'"
             ></v-subheader>
-            <ConversationSearch />
+            <ConversationSearch @value="onContactSearch"/>
 
-            <ConversationListItem :key="conversation.user" :conversation="conversation"
-                                  v-for="conversation in conversations">
-            </ConversationListItem>
+            <fragment v-if="!search">
+                <ConversationListItem :key="conversation.user" :conversation="conversation"
+                                      v-for="conversation in conversations">
+                </ConversationListItem>
+            </fragment>
+            <div v-else>
+                No results found.
+            </div>
         </v-list>
     </v-card>
 </template>
@@ -28,11 +33,21 @@
     export default {
         name: "ConversationsList",
         components: {ConversationSearch, ConversationListItem},
+        data() {
+            return {
+                search: ""
+            }
+        },
         async mounted() {
             await this.$store.dispatch(`conversation/${A_FETCH_CONVERSATIONS}`);
         },
         computed: {
             ...mapState("conversation", ["conversations"])
+        },
+        methods: {
+            onContactSearch(value) {
+                this.search = value
+            }
         }
     }
 </script>
