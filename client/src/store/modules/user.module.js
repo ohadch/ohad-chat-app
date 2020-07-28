@@ -2,8 +2,8 @@ import userService from "../../services/user.service";
 
 import {A_LOGIN, A_LOGOUT, A_SIGN_UP} from "../actions/user.actions";
 import {M_LOGOUT, M_SET_ACTIVE_USER} from "../mutations/user.mutations";
+import {LOCALSTORAGE_KEY_ACTIVE_USER, LOCALSTORAGE_KEY_AUTH_TOKEN} from "../../consts";
 
-const KEY_ACTIVE_USER = "user";
 
 
 export default {
@@ -26,11 +26,13 @@ export default {
     },
     mutations: {
         [M_SET_ACTIVE_USER](state, user) {
-            localStorage.setItem(KEY_ACTIVE_USER, JSON.stringify(user));
+            localStorage.setItem(LOCALSTORAGE_KEY_ACTIVE_USER, JSON.stringify(user));
+            localStorage.setItem(LOCALSTORAGE_KEY_AUTH_TOKEN, user._id);
             state.active = user;
         },
         [M_LOGOUT](state) {
-            localStorage.removeItem(KEY_ACTIVE_USER)
+            localStorage.removeItem(LOCALSTORAGE_KEY_ACTIVE_USER)
+            localStorage.removeItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
             state.active = null;
         }
     }
@@ -38,10 +40,10 @@ export default {
 
 function getCachedUser() {
     try {
-        return localStorage.getItem(KEY_ACTIVE_USER)
-            ? JSON.parse(localStorage.getItem(KEY_ACTIVE_USER))
+        return localStorage.getItem(LOCALSTORAGE_KEY_ACTIVE_USER)
+            ? JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY_ACTIVE_USER))
             : null
     } catch (e) {
-        localStorage.removeItem(KEY_ACTIVE_USER)
+        localStorage.removeItem(LOCALSTORAGE_KEY_ACTIVE_USER)
     }
 }

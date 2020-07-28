@@ -1,3 +1,5 @@
+import {LOCALSTORAGE_KEY_AUTH_TOKEN} from "../consts";
+
 export default {
     request
 }
@@ -13,7 +15,7 @@ export default {
 async function request(method, endpoint, { params, body } = {}) {
     const requestOptions = {
         method: method.toUpperCase(),
-        headers: {"Content-Type": "application/json"}
+        headers: getDefaultHeaders()
     };
 
     if (["POST", "PUT", "DELETE"].includes(method.toUpperCase())) {
@@ -41,6 +43,11 @@ function buildUrl(endpoint, params) {
     return urlString.slice(mockHost.length)
 }
 
+
+function getDefaultHeaders() {
+        const authToken = localStorage.getItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
+    return {"Content-Type": "application/json", token: authToken}
+}
 
 function handleResponse(response) {
     return response.text().then(text => {
