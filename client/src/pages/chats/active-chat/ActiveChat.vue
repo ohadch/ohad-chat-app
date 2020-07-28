@@ -1,26 +1,31 @@
 <template>
-    <fragment>
-        <v-layout column justify-space-between v-if="conversation">
-                <v-toolbar flat style="max-height: 48px;" color="#E6E6E6">
-                    <v-toolbar-title style="padding-bottom: 7px;">
-                        <v-avatar size="36">
-                            <img
-                                    :src="contact.avatar"
-                                    :alt="contact.nickname"
-                            >
-                        </v-avatar>
-                        {{ contact.nickname }}
-                    </v-toolbar-title>
-                </v-toolbar>
-                <v-flex ref="messagesContainer" style="max-height: 80vh; padding: 10px; overflow-y: scroll; scroll-snap-type: y mandatory; overscroll-behavior-y: contain;">
-                    <MessageBubble v-for="message in messages" :key="message.id" :message="message" />
-                </v-flex>
-                <ChatInput/>
-        </v-layout>
-        <v-layout v-else style="padding: 10px;">
-            No conversation is selected
-        </v-layout>
-    </fragment>
+    <v-layout column justify-space-between>
+        <v-flex v-if="conversation">
+            <v-toolbar flat color="#E6E6E6" height="64px">
+                <v-toolbar-title>
+                    <v-list-item style="padding-left: 0;">
+                        <v-list-item-avatar>
+                            <v-img :src="contact.avatar"></v-img>
+                        </v-list-item-avatar>
+
+                        <v-list-item-content>
+                            <v-list-item-title v-html="contact.nickname"></v-list-item-title>
+                            <v-list-item-subtitle
+                                    v-html="'Online or Offline'"></v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-toolbar-title>
+            </v-toolbar>
+            <v-flex ref="messagesContainer"
+                    style="max-height: 80vh; padding: 10px; overflow-y: scroll; scroll-snap-type: y mandatory; overscroll-behavior-y: contain;">
+                <MessageBubble v-for="message in messages" :key="message.id" :message="message"/>
+            </v-flex>
+            <ChatInput/>
+        </v-flex>
+        <v-flex v-else style="padding: 10px;">
+            No conversation is selected.
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
