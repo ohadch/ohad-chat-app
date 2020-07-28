@@ -11,7 +11,7 @@
         <v-card-text style="padding: 0;">
             <ConversationSearch @value="onSearch"/>
             <ConversationsList :conversations="filteredConversations"/>
-            <ContactsList v-if="search" :contacts="externalContacts"/>
+            <ContactsList v-if="search" :contacts="contacts"/>
         </v-card-text>
 
     </v-card>
@@ -22,17 +22,16 @@
 
     import ConversationSearch from "./ConversationSearch";
     import ContactsList from "./contacts-list/ContactsList";
-    import contactsService from "../../../services/contacts.service";
     import ConversationsList from "./conversations-list/ConversationsList";
     import {A_FETCH_CONVERSATIONS} from "../../../store/actions/conversation.actions";
+    import {A_FETCH_CONTACTS} from "../../../store/actions/contacts.actions";
 
     export default {
         name: "SideBar",
         components: {ConversationsList, ConversationSearch, ContactsList},
         data() {
             return {
-                search: "",
-                externalContacts: []
+                search: ""
             }
         },
         async mounted() {
@@ -43,6 +42,9 @@
                 activeUser: "active"
             }),
             ...mapState("conversation", ["conversations"]),
+            ...mapState("contacts", {
+                contacts: "searchResultContacts"
+            }),
             filteredConversations() {
                 return this.search ? this.conversations
                     .filter(conversation =>
@@ -56,7 +58,7 @@
         methods: {
             async onSearch(value) {
                 this.search = value;
-                this.externalContacts = await contactsService.searchExternalContacts(this.search);
+                await this.$store.dispatch(`contacts/${A_FETCH_CONTACTS}`);
             }
         }
     }

@@ -1,38 +1,46 @@
+import apiService from "./api.service";
+
+
 export default {
-    getContacts,
-    searchExternalContacts
+    getContacts
 }
 
-const CONTACTS = [
-    {
-        firstName: "Ronald",
-        lastNAme: "Weasley",
-        nickname: "griffind0r"
-    },
-    {
-        firstName: "Miley",
-        lastNAme: "Cyrus",
-        nickname: "mileybu"
-    }
-]
 
-const EXTERNAL_CONTACTS = [
-    {
-        firstName: "External",
-        lastNAme: "One",
-        nickname: "external1"
-    },
-    {
-        firstName: "External",
-        lastNAme: "2",
-        nickname: "external2"
-    }
-]
 
-async function getContacts() {
-    return CONTACTS
+async function getContacts(filterByText) {
+    const options = filterByText ? {
+        params: {
+            filterByText
+        }
+    } : {}
+
+    return apiService.request("GET", "/api/contacts", options)
 }
 
-async function searchExternalContacts(filterByText) {
-    return EXTERNAL_CONTACTS.filter(contact => contact.nickname.toLowerCase().includes(filterByText.toLowerCase()))
-}
+
+//
+// const CONTACTS = [
+//     {
+//         firstName: "Ronald",
+//         lastNAme: "Weasley",
+//         nickname: "griffind0r"
+//     },
+//     {
+//         firstName: "Miley",
+//         lastNAme: "Cyrus",
+//         nickname: "mileybu"
+//     }
+// ]
+//
+// const EXTERNAL_CONTACTS = [
+//     {
+//         firstName: "External",
+//         lastNAme: "One",
+//         nickname: "external1"
+//     },
+//     {
+//         firstName: "External",
+//         lastNAme: "2",
+//         nickname: "external2"
+//     }
+// ]
