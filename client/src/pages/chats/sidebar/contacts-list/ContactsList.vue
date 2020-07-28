@@ -19,6 +19,8 @@
 
 <script>
 
+    import {A_GET_OR_CREATE_CONVERSATION} from "../../../../store/actions/conversation.actions";
+
     export default {
         name: "ContactsList",
         props: {
@@ -28,8 +30,8 @@
             }
         },
         methods: {
-            onContactSelected() {
-                alert("not implemented")
+            onContactSelected(contact) {
+                this.$store.dispatch(`conversation/${A_GET_OR_CREATE_CONVERSATION}`, contact)
             }
         }
     }

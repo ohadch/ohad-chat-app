@@ -1,5 +1,5 @@
 <template>
-    <v-list three-line style="padding-top: 0;">
+    <v-list three-line style="padding-top: 0">
         <v-subheader>My Conversations</v-subheader>
         <v-list-item
                 @click="onConversationSelected(conversation)"
@@ -14,7 +14,7 @@
             <v-list-item-content>
                 <v-list-item-title v-html="conversation.contact.nickname"></v-list-item-title>
                 <v-list-item-subtitle
-                        v-html="conversation.messages[conversation.messages.length - 1].text"></v-list-item-subtitle>
+                        v-html="conversation.messages.length ? conversation.messages[conversation.messages.length - 1].text : ''"></v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
     </v-list>
@@ -24,7 +24,7 @@
     import {M_SET_SELECTED} from "../../../../store/mutations/conversation.mutations";
 
     export default {
-        name: "ConversationsListWrapper",
+        name: "ConversationsList",
         props: {
             conversations: {
                 type: Array,

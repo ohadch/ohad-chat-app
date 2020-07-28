@@ -20,4 +20,4 @@ userSchema.statics.searchByNicknameContains = function(text) {
     return this.find({ "nickname": { "$regex": text, "$options": "i" } }).exec();
 }
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema, "users")

@@ -9,4 +9,4 @@ const messageSchema = new Schema({
     seenAt: String
 });
 
-module.exports = mongoose.model("Message", messageSchema)
+module.exports = mongoose.model("Message", messageSchema, "messages")

@@ -1,11 +1,21 @@
 import apiService from "./api.service"
 
 export default {
-    getConversations
+    getConversations,
+    getOrCreateConversation
 }
 
 async function getConversations() {
-    return apiService.request("GET", "/api/conversations")
+    const {conversations} = await apiService.request("GET", "/api/conversations")
+    return conversations;
+}
+
+async function getOrCreateConversation(contact) {
+    return apiService.request("POST", "/api/conversations", {
+        body: {
+            contact
+        }
+    })
 }
 
 

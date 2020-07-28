@@ -4,4 +4,6 @@ const router = express.Router();
 
 router.get("/", controller.getConversations)
 
+router.post("/", controller.createConversation)
+
 module.exports = router;
