@@ -1,19 +1,19 @@
 <template>
     <v-layout fill-height>
-        <ConversationsList/>
+        <SideBar/>
         <ActiveChat/>
     </v-layout>
 </template>
 
 <script>
     import ActiveChat from "./active-chat/ActiveChat";
-    import ConversationsList from "./conversations/ConversationsList";
+    import SideBar from "./sidebar/SideBar";
 
     export default {
         name: "ChatPage",
         components: {
-            ActiveChat,
-            ConversationsList
+            SideBar,
+            ActiveChat
         }
     }
 </script>

@@ -5,11 +5,11 @@
                     <v-toolbar-title style="padding-bottom: 7px;">
                         <v-avatar size="36">
                             <img
-                                    :src="conversation.avatar"
-                                    :alt="conversation.user"
+                                    :src="contact.avatar"
+                                    :alt="contact.nickname"
                             >
                         </v-avatar>
-                        {{ conversation.user }}
+                        {{ contact.nickname }}
                     </v-toolbar-title>
                 </v-toolbar>
                 <v-flex ref="messagesContainer" style="max-height: 80vh; padding: 10px; overflow-y: scroll; scroll-snap-type: y mandatory; overscroll-behavior-y: contain;">
@@ -43,6 +43,9 @@
             }),
             messages() {
                 return this.conversation && this.conversation.messages;
+            },
+            contact() {
+                return this.conversation && this.conversation.contact;
             }
         },
         methods: {
@@ -51,7 +54,7 @@
                 if (!container) return;
 
                 container.scrollTop = container.scrollHeight - container.clientHeight;
-            }
+            },
         },
         watch: {
             messages() {

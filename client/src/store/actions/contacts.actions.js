@@ -1,0 +1,1 @@
+export const A_FETCH_CONTACTS = "A_FETCH_CONTACTS"

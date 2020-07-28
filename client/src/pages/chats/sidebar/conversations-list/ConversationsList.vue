@@ -1,37 +1,42 @@
 <template>
-    <fragment>
+    <v-list three-line style="padding-top: 0;">
+        <v-subheader>My Conversations</v-subheader>
         <v-list-item
-                :key="conversation.user"
                 @click="onConversationSelected(conversation)"
+                :key="conversation.contact._id"
+                :conversation="conversation"
+                v-for="conversation in conversations"
         >
             <v-list-item-avatar>
-                <v-img :src="conversation.avatar"></v-img>
+                <v-img :src="conversation.contact.avatar"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-                <v-list-item-title v-html="conversation.user"></v-list-item-title>
+                <v-list-item-title v-html="conversation.contact.nickname"></v-list-item-title>
                 <v-list-item-subtitle
                         v-html="conversation.messages[conversation.messages.length - 1].text"></v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
-        <v-divider
-                :inset="conversation.inset"
-        ></v-divider>
-    </fragment>
+    </v-list>
 </template>
 
 <script>
-    import {M_SET_SELECTED} from "../../../store/mutations/conversation.mutations";
+    import {M_SET_SELECTED} from "../../../../store/mutations/conversation.mutations";
 
     export default {
-        name: "ConversationListItem",
+        name: "ConversationsListWrapper",
         props: {
-            conversation: {
-                type: Object,
+            conversations: {
+                type: Array,
                 required: true
+            },
+            search: {
+                type: String,
+                required: false
             }
         },
         methods: {
+
             onConversationSelected(conversation) {
                 this.$store.commit(`conversation/${M_SET_SELECTED}`, conversation)
             }

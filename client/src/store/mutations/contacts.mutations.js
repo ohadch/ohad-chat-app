@@ -1,0 +1,1 @@
+export const M_SET_CONTACTS = "M_SET_CONTACTS"

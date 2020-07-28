@@ -7,11 +7,6 @@
 
     export default {
         name: "ConversationSearch",
-        data() {
-            return {
-                search: ""
-            }
-        },
         methods: {
             onSearch: debounce(function (value) {
                 this.$emit("value", value)
