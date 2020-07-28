@@ -14,7 +14,8 @@ async function getContacts(filterByText) {
         }
     } : {}
 
-    return apiService.request("GET", "/api/contacts", options)
+    const {users} = await apiService.request("GET", "/api/contacts", options)
+    return users;
 }
 
 
