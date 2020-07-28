@@ -11,12 +11,12 @@ export default {
     },
     actions: {
         async [A_FETCH_CONTACTS]({ commit }, filterByText) {
-            const contacts = contactsService.getContacts(filterByText)
+            const contacts = await contactsService.getContacts(filterByText)
             commit(M_SET_CONTACTS, contacts);
         },
         async [A_SEARCH_CONTACTS]({ commit }, filterByText) {
-            const contacts = contactsService.getContacts(filterByText)
-            commit(M_SET_CONTACTS, contacts);
+            const contacts = await contactsService.getContacts(filterByText)
+            commit(M_SET_SEARCH_RESULT_CONTACTS, contacts);
         }
     },
     mutations: {

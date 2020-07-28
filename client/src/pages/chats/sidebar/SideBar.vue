@@ -24,7 +24,7 @@
     import ContactsList from "./contacts-list/ContactsList";
     import ConversationsList from "./conversations-list/ConversationsList";
     import {A_FETCH_CONVERSATIONS} from "../../../store/actions/conversation.actions";
-    import {A_FETCH_CONTACTS} from "../../../store/actions/contacts.actions";
+    import {A_FETCH_CONTACTS, A_SEARCH_CONTACTS} from "../../../store/actions/contacts.actions";
 
     export default {
         name: "SideBar",
@@ -58,7 +58,7 @@
         methods: {
             async onSearch(value) {
                 this.search = value;
-                await this.$store.dispatch(`contacts/${A_FETCH_CONTACTS}`);
+                await this.$store.dispatch(`contacts/${A_SEARCH_CONTACTS}`);
             }
         }
     }
