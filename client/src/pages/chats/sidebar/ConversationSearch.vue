@@ -1,5 +1,5 @@
 <template>
-    <v-text-field @input="onSearch" placeholder="Search Contact..." style="padding: 10px;"></v-text-field>
+    <v-text-field hide-details @input="onSearch" placeholder="Search..." style="padding: 10px;"></v-text-field>
 </template>
 
 <script>
