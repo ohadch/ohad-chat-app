@@ -14,18 +14,20 @@ export default {
         conversations: []
     },
     actions: {
-        async [A_SEND_MESSAGE]({ commit, state }, message) {
-            const id = state.selected.messages
-                .map(foo => foo._id)
-                .reduce((a, b) => a > b ? a : b) +  1
+        async [A_SEND_MESSAGE]({commit, state}, message) {
+            const id = state.selected.messages.length
+                ? state.selected.messages
+                    .map(foo => foo._id)
+                    .reduce((a, b) => a > b ? a : b) + 1
+                : 0
 
             commit(M_ADD_MESSAGE, {...message, _id: id})
         },
-        async [A_FETCH_CONVERSATIONS]({ commit }) {
+        async [A_FETCH_CONVERSATIONS]({commit}) {
             const conversations = await conversationService.getConversations();
             commit(M_SET_CONVERSATIONS, conversations)
         },
-        async [A_GET_OR_CREATE_CONVERSATION]({ commit }, contact) {
+        async [A_GET_OR_CREATE_CONVERSATION]({commit}, contact) {
             const conversation = await conversationService.getOrCreateConversation(contact)
             commit(M_SET_SELECTED, conversation);
         }

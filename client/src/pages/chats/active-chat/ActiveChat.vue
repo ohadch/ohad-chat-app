@@ -3,7 +3,7 @@
         <v-flex v-if="conversation">
             <ConversationToolbar :contact="contact" />
             <v-flex ref="messagesContainer"
-                    style="height: 80vh; padding: 10px; overflow-y: scroll; scroll-snap-type: y mandatory; overscroll-behavior-y: contain;">
+                    style="height: 77vh; overflow-y: scroll; scroll-snap-type: y mandatory; overscroll-behavior-y: contain;">
                 <MessageBubble v-for="message in messages" :key="message.id" :message="message"/>
             </v-flex>
             <ChatInput/>
