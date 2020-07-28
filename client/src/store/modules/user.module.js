@@ -26,13 +26,13 @@ export default {
     },
     mutations: {
         [M_SET_ACTIVE_USER](state, user) {
-            localStorage.setItem(LOCALSTORAGE_KEY_ACTIVE_USER, JSON.stringify(user));
-            localStorage.setItem(LOCALSTORAGE_KEY_AUTH_TOKEN, user._id);
+            sessionStorage.setItem(LOCALSTORAGE_KEY_ACTIVE_USER, JSON.stringify(user));
+            sessionStorage.setItem(LOCALSTORAGE_KEY_AUTH_TOKEN, user._id);
             state.active = user;
         },
         [M_LOGOUT](state) {
-            localStorage.removeItem(LOCALSTORAGE_KEY_ACTIVE_USER)
-            localStorage.removeItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
+            sessionStorage.removeItem(LOCALSTORAGE_KEY_ACTIVE_USER)
+            sessionStorage.removeItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
             state.active = null;
         }
     }
@@ -40,10 +40,10 @@ export default {
 
 function getCachedUser() {
     try {
-        return localStorage.getItem(LOCALSTORAGE_KEY_ACTIVE_USER)
-            ? JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY_ACTIVE_USER))
+        return sessionStorage.getItem(LOCALSTORAGE_KEY_ACTIVE_USER)
+            ? JSON.parse(sessionStorage.getItem(LOCALSTORAGE_KEY_ACTIVE_USER))
             : null
     } catch (e) {
-        localStorage.removeItem(LOCALSTORAGE_KEY_ACTIVE_USER)
+        sessionStorage.removeItem(LOCALSTORAGE_KEY_ACTIVE_USER)
     }
 }

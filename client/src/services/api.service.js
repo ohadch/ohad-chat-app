@@ -45,7 +45,7 @@ function buildUrl(endpoint, params) {
 
 
 function getDefaultHeaders() {
-        const authToken = localStorage.getItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
+        const authToken = sessionStorage.getItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
     return {"Content-Type": "application/json", token: authToken}
 }
 
