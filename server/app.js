@@ -5,7 +5,9 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -36,4 +38,5 @@ io.on('connection', (socket) => {
 });
 
 
-module.exports = app;
+module.exports.app = app;
+module.exports.http = http;

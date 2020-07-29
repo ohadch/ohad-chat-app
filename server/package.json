@@ -13,6 +13,7 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.15.2",
     "express-joi-validation": "^4.0.4-beta.0",
     "mongoose": "^5.9.25",
