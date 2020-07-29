@@ -10,25 +10,33 @@ const conversationSchema = new Schema({
     }]
 });
 
-conversationSchema.statics.getOrCreate = async function(user, contact) {
-    const conversation = await this.findOne({
-        user: user._id.toObjectId(),
-        contact: contact._id.toObjectId(),
-    }).populate("user", "contact").exec();
+conversationSchema.statics.getOrCreate = async function (user, contact) {
+    let _this = this;
+
+    const conversation = await getConversation()
 
     if (conversation) {
         return conversation;
     }
 
-    const newConversation = new this({
+    await new this({
         user,
         contact,
         messages: []
-    })
+    }).save();
 
-    await newConversation.save();
+    const savedConversation = await getConversation()
+    return savedConversation._doc;
 
-    return newConversation;
+    function getConversation() {
+        return _this.findOne({
+            user: user._id.toObjectId(),
+            contact: contact._id.toObjectId(),
+        }).populate([
+            {path: "user", model: "User"},
+            {path: "contact", model: "User"},
+        ]).exec();
+    }
 }
 
 module.exports = mongoose.model("Conversation", conversationSchema, "conversations")

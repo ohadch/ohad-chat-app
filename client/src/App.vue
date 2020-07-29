@@ -17,9 +17,6 @@
         components: {
             BottomNavigation,
         },
-        data: () => ({
-            //
-        }),
         mounted() {
             if (!this.user) {
                 this.$router.push("/login")

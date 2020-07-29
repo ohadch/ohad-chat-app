@@ -7,11 +7,9 @@ module.exports = {
 
 async function getContacts(req, res) {
     try {
-        const {filterByText} = req.query;
-        const users = filterByText
-            ? await User.searchByNicknameContains(filterByText)
-            : await User.find({}).exec();
-        return res.json({users: users.map(user => user._doc)});
+        const users = await User.find({}).exec();
+        const contacts = users.filter(user => user._id != req.user._id);
+        return res.json({contacts: contacts.map(user => user._doc)});
     } catch (e) {
         console.error(e)
         return res.status(500).json({error: e.message})

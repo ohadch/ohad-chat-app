@@ -16,8 +16,4 @@ userSchema.statics.findByEmail = function(email) {
     return this.findOne({ email });
 }
 
-userSchema.statics.searchByNicknameContains = function(text) {
-    return this.find({ "nickname": { "$regex": text, "$options": "i" } }).exec();
-}
-
 module.exports = mongoose.model("User", userSchema, "users")

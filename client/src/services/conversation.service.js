@@ -11,11 +11,13 @@ async function getConversations() {
 }
 
 async function getOrCreateConversation(contact) {
-    return apiService.request("POST", "/api/conversations", {
+    const {conversation} = await apiService.request("POST", "/api/conversations", {
         body: {
             contact
         }
     })
+
+    return conversation;
 }
 
 

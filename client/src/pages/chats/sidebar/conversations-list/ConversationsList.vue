@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import {M_SET_SELECTED} from "../../../../store/mutations/conversation.mutations";
+    import {A_GET_OR_CREATE_CONVERSATION} from "../../../../store/actions/conversation.actions";
 
     export default {
         name: "ConversationsList",
@@ -36,9 +36,8 @@
             }
         },
         methods: {
-
             onConversationSelected(conversation) {
-                this.$store.commit(`conversation/${M_SET_SELECTED}`, conversation)
+                this.$store.dispatch(`conversation/${A_GET_OR_CREATE_CONVERSATION}`, conversation.contact)
             }
         }
     }

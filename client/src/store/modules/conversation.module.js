@@ -27,8 +27,9 @@ export default {
             const conversations = await conversationService.getConversations();
             commit(M_SET_CONVERSATIONS, conversations)
         },
-        async [A_GET_OR_CREATE_CONVERSATION]({commit}, contact) {
+        async [A_GET_OR_CREATE_CONVERSATION]({commit, dispatch}, contact) {
             const conversation = await conversationService.getOrCreateConversation(contact)
+            dispatch(A_FETCH_CONVERSATIONS);
             commit(M_SET_SELECTED, conversation);
         }
     },
