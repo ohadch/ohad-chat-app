@@ -6,7 +6,7 @@ export default {
 }
 
 async function signUp({firstName, lastName, email, nickname}) {
-    const { user } = apiService.request("POST", "/api/user/signup", {
+    const { user } = await apiService.request("POST", "/api/user/signup", {
         body: {firstName, lastName, email, nickname}
     });
     return user;
