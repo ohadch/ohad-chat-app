@@ -3,6 +3,7 @@
             max-width="350"
             class="mx-auto"
             height="100%"
+            elevation="6"
     >
         <v-card-title
                 style="background: #ECDBBD"

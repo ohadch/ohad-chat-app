@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar flat color="#E6E6E6" height="64px">
+    <v-toolbar elevation="3" color="#E6E6E6" height="64px">
         <v-toolbar-title>
             <v-list-item style="padding-left: 0;">
                 <v-list-item-avatar>
