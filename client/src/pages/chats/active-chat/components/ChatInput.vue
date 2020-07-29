@@ -20,6 +20,9 @@
         computed: {
             ...mapState("conversation", {
                 conversation: "selected"
+            }),
+            ...mapState("user", {
+                user: "active"
             })
         },
         methods: {
@@ -27,8 +30,8 @@
                 if (!this.text) return;
 
                 this.$store.dispatch(`conversation/${A_SEND_MESSAGE}`, {
-                    sentBy: "me",
-                    sentAt: new Date(),
+                    user: this.user,
+                    contact: this.conversation.contact,
                     text: this.text
                 })
 

@@ -14,14 +14,8 @@ export default {
         conversations: []
     },
     actions: {
-        async [A_SEND_MESSAGE]({commit, state}, message) {
-            const id = state.selected.messages.length
-                ? state.selected.messages
-                    .map(foo => foo._id)
-                    .reduce((a, b) => a > b ? a : b) + 1
-                : 0
-
-            commit(M_ADD_MESSAGE, {...message, _id: id})
+        async [A_SEND_MESSAGE](_, {user, contact, text}) {
+            this._vm.$socket.client.emit('message', JSON.stringify({ user, contact, text }));
         },
         async [A_FETCH_CONVERSATIONS]({commit}) {
             const conversations = await conversationService.getConversations();
@@ -31,7 +25,7 @@ export default {
             const conversation = await conversationService.getOrCreateConversation(contact)
             dispatch(A_FETCH_CONVERSATIONS);
             commit(M_SET_SELECTED, conversation);
-        }
+        },
     },
     mutations: {
         [M_SET_CONVERSATIONS](state, conversations) {
@@ -42,6 +36,6 @@ export default {
         },
         [M_ADD_MESSAGE](state, message) {
             state.selected.messages.push(message);
-        }
+        },
     }
 }

@@ -11,6 +11,8 @@
 </template>
 
 <script>
+    import { mapState } from "vuex";
+
     export default {
         name: "MessageBubble",
         props: {
@@ -20,11 +22,14 @@
             }
         },
         computed: {
+            ...mapState("user", {
+                user: "active"
+            }),
             isSentByMe() {
-                return this.message.sentBy === "me"
+                return this.message.sender._id === this.user._id
             },
             isSentToMe() {
-                return this.message.sentBy !== "me"
+                return !this.isSentByMe
             },
             color() {
                 return this.isSentToMe ? "#CBE9F6": "#EFE8D6";
