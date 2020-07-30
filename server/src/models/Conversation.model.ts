@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import {IConversationDocument, IConversationModel, IUserDocument} from "../ts/interfaces";
+import {IConversationDocument, IConversationModel, IUserDocument} from "../types/interfaces";
 
 const ConversationSchema = new Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},

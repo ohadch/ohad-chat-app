@@ -6,12 +6,12 @@ export default {
 }
 
 async function getConversations() {
-    const {conversations} = await apiService.request("GET", "/api/conversations")
+    const {conversations} = await apiService.request("GET", "/api/conversation")
     return conversations;
 }
 
 async function getOrCreateConversation(contact) {
-    const {conversation} = await apiService.request("POST", "/api/conversations", {
+    const {conversation} = await apiService.request("POST", "/api/conversation", {
         body: {
             contact
         }

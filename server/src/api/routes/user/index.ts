@@ -8,4 +8,4 @@ router.post("/login", validator.body(LoginValidation), controller.login)
 
 router.post("/signup", validator.body(SignUpValidation), controller.signUp)
 
-module.exports = router;
+export default router;

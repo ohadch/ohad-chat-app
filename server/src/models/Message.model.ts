@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-import {IMessageDocument, IMessageModel} from "../ts/interfaces";
+import {IMessageDocument, IMessageModel} from "../types/interfaces";
 
 const messageSchema = new Schema({
     text: {type: String, nullable: false},

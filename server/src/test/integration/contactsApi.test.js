@@ -5,9 +5,9 @@ const { expect } = require("chai");
 
 describe("Contacts API", function () {
     describe("GET", function () {
-        it("Should return all contacts", function () {
+        it("Should return all contact", function () {
             request(app)
-                .get("/api/contacts")
+                .get("/api/contact")
                 .set('Accept', 'application/json')
                 .end(function (err, res) {
                     if (err) throw err;

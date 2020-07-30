@@ -1,16 +1,12 @@
-const Conversation = require("../../models/Conversation.model");
-
-module.exports = {
-    getConversations,
-    createConversation
-}
+import Conversation from "../../../models/Conversation.model";
+import {Request, Response} from "express";
 
 
-async function getConversations(req, res) {
+export async function getConversations(req: Request, res: Response) : Promise<Response> {
     const {user} = req;
 
     try {
-        const records = await Conversation.find({ user: user._id }).populate([
+        const records = await Conversation.find({ user: user!._id }).populate([
             { path: "user", model: "User" },
             { path: "contact", model: "User" },
         ]).exec();
@@ -22,7 +18,7 @@ async function getConversations(req, res) {
     }
 }
 
-async function createConversation(req, res) {
+export async function createConversation(req: Request, res: Response) : Promise<Response> {
     const {user} = req;
     const {contact} = req.body;
 

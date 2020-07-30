@@ -7,6 +7,6 @@ export default {
 
 
 async function getContacts() {
-    const {contacts} = await apiService.request("GET", "/api/contacts")
+    const {contacts} = await apiService.request("GET", "/api/contact")
     return contacts;
 }

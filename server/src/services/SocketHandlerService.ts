@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import {ISocketHandlerService} from "../ts/interfaces";
+import {ISocketHandlerService} from "../types/interfaces";
 import {io} from "../config";
 
 
