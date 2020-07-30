@@ -1,7 +1,7 @@
 import {app, io} from "./config"
 
 import * as bodyParser from 'body-parser'
-import * as cors from 'cors'
+import cors from 'cors'
 import SocketHandlerService from "./services/SocketHandlerService"
 import api from "./api";
 

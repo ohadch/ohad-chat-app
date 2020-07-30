@@ -1,8 +1,8 @@
 import Conversation from "../../../models/Conversation.model";
-import {Request, Response} from "express";
+import {Response} from "express";
 
 
-export async function getConversations(req: Request, res: Response) : Promise<Response> {
+export async function getConversations(req, res) : Promise<Response> {
     const {user} = req;
 
     try {
@@ -18,7 +18,7 @@ export async function getConversations(req: Request, res: Response) : Promise<Re
     }
 }
 
-export async function createConversation(req: Request, res: Response) : Promise<Response> {
+export async function createConversation(req, res) : Promise<Response> {
     const {user} = req;
     const {contact} = req.body;
 

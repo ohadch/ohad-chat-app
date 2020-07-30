@@ -1,7 +1,6 @@
 import User from "../../../models/User.model";
-import {Request, Response} from "express";
 
-export async function signUp(req: Request, res: Response) {
+export async function signUp(req, res) {
     try {
         const {firstName, lastName, email, nickname} = req.body;
 
@@ -21,7 +20,7 @@ export async function signUp(req: Request, res: Response) {
 }
 
 
-export async function login(req: Request, res: Response) {
+export async function login(req, res) {
     const {email} = req.body;
     const user = await User.findByEmail(email)
     return res.json({user});
