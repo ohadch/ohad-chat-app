@@ -1,11 +1,14 @@
-const express = require("express")
-const controller = require("./user.controller");
-const {SignUpValidation, LoginValidation} = require("./validations");
-const validator = require('express-joi-validation').createValidator({})
+import * as express from "express";
+
+import {login, signUp} from "./user.controller";
+import validation from "express-joi-validation";
+import {LoginValidation, SignUpValidation} from "./validations";
+
+const validator = validation.createValidator({})
 const router = express.Router();
 
-router.post("/login", validator.body(LoginValidation), controller.login)
+router.post("/login", validator.body(LoginValidation), login)
 
-router.post("/signup", validator.body(SignUpValidation), controller.signUp)
+router.post("/signup", validator.body(SignUpValidation), signUp)
 
 export default router;

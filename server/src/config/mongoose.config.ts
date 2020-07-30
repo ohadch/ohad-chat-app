@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import mongoose from "mongoose";
 import {MONGO_PASSWORD, MONGO_URI, MONGO_USER} from "./consts.config";
 
 mongoose.connect(MONGO_URI, {

@@ -3,6 +3,7 @@ import {app, io} from "./config"
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import SocketHandlerService from "./services/SocketHandlerService"
+import api from "./api";
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -12,8 +13,9 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.use("/api", require("./api"))
+app.use("/api", api)
 
 io.on('connection', (socket) => new SocketHandlerService(socket).handle());
 
 export default app;
+export * from "./config"

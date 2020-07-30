@@ -1,12 +1,7 @@
-const User = require("../../models/User.model");
+import User from "../../../models/User.model";
+import {Request, Response} from "express";
 
-module.exports = {
-    signUp,
-    login
-}
-
-
-async function signUp(req, res) {
+export async function signUp(req: Request, res: Response) {
     try {
         const {firstName, lastName, email, nickname} = req.body;
 
@@ -26,7 +21,7 @@ async function signUp(req, res) {
 }
 
 
-async function login(req, res) {
+export async function login(req: Request, res: Response) {
     const {email} = req.body;
     const user = await User.findByEmail(email)
     return res.json({user});

@@ -12,4 +12,4 @@ mountRestrictedRouter(api, "/contact", contactRoutes);
 mountRestrictedRouter(api, "/conversation", conversationRoutes);
 
 
-module.exports = api;
+export default api;
