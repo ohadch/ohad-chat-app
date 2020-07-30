@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from "mongoose";
+import {IConversationDocument, IConversationModel, IUserDocument} from "../ts/interfaces";
 
-const conversationSchema = new Schema({
+const ConversationSchema = new Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     contact: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     messages: [{
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Message'
     }]
 });
 
-conversationSchema.statics.getOrCreate = async function (user, contact) {
-    let _this = this;
+ConversationSchema.statics.getOrCreate = async function (user: IUserDocument, contact: IUserDocument) : Promise<IConversationDocument> {
+    const _this = this;
 
     const conversation = await getConversation()
 
@@ -39,4 +39,5 @@ conversationSchema.statics.getOrCreate = async function (user, contact) {
     }
 }
 
-module.exports = mongoose.model("Conversation", conversationSchema, "conversations")
+const ConversationModel: IConversationModel = mongoose.model<IConversationDocument, IConversationModel>("Conversation", ConversationSchema, "conversations");
+export default ConversationModel;

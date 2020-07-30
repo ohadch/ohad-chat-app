@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, {Schema} from "mongoose";
+import {IMessageDocument, IMessageModel} from "../ts/interfaces";
 
 const messageSchema = new Schema({
     text: {type: String, nullable: false},
@@ -10,4 +10,5 @@ const messageSchema = new Schema({
     seenAt: String
 });
 
-module.exports = mongoose.model("Message", messageSchema, "messages")
+const MessageModel: IMessageModel = mongoose.model<IMessageDocument, IMessageModel>("Message", messageSchema, "messages");
+export default MessageModel;
