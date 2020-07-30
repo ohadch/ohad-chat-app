@@ -1,12 +1,20 @@
 import {Socket} from "socket.io";
 import {Document, Model} from "mongoose";
+import * as express from "express";
 
+export interface IAuthenticatedRequest extends express.Request {
+    user: IUserDocument
+}
 
 export interface ISocketHandlerService {
     socket: Socket
 }
 
-export interface IUserDocument extends Document {
+export interface EnhancedDocuments extends Document {
+    _doc: Document,
+}
+
+export interface IUserDocument extends EnhancedDocuments {
     firstName: string;
     lastName: string;
     email: string;
@@ -20,7 +28,7 @@ export interface IUserModel extends Model<IUserDocument> {
     findByEmail(email: string): IUserDocument | null;
 }
 
-export interface IMessageDocument extends Document {
+export interface IMessageDocument extends EnhancedDocuments {
     text: string,
     sender: string,
     recipient: string,
@@ -32,7 +40,7 @@ export interface IMessageDocument extends Document {
 export interface IMessageModel extends Model<IMessageDocument> {
 }
 
-export interface IConversationDocument extends Document {
+export interface IConversationDocument extends EnhancedDocuments {
     user: IUserDocument;
     contact: IUserDocument;
     messages: IMessageDocument[]
