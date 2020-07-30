@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import {ISocketHandlerService} from "../ts/interfaces";
-const {io} = require("../config");
+import {io} from "../config";
 
 
 export default class SocketHandlerService implements ISocketHandlerService {
@@ -10,12 +10,12 @@ export default class SocketHandlerService implements ISocketHandlerService {
         this.socket = socket
     }
 
-    handle() {
+    public handle() : void {
         this.socket.on('message', this.handleMessageSent);
         this.socket.on('disconnect', this.handleDisconnection);
     }
 
-    public handleMessageSent(messageJson) {
+    public handleMessageSent(messageJson: string) : void {
         const message = JSON.parse(messageJson);
 
         io.emit('chat_message', JSON.stringify({
@@ -26,7 +26,7 @@ export default class SocketHandlerService implements ISocketHandlerService {
         }));
     }
 
-    public handleDisconnection() {
+    public handleDisconnection() : void {
         io.emit('chat message', "----- Somebody just left the chat");
     }
 }
