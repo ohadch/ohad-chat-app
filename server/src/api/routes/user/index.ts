@@ -1,7 +1,7 @@
 import * as express from "express";
 
 import {login, signUp} from "./user.controller";
-import validation from "express-joi-validation";
+import * as validation from "express-joi-validation";
 import {LoginValidation, SignUpValidation} from "./validations";
 
 const validator = validation.createValidator({})
