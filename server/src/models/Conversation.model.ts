@@ -1,4 +1,5 @@
-import mongoose, { Schema } from "mongoose";
+import  mongoose from "mongoose";
+import { Schema } from "mongoose";
 import {IConversationDocument, IConversationModel, IUserDocument} from "../types/interfaces";
 
 const ConversationSchema = new Schema({
@@ -30,8 +31,8 @@ ConversationSchema.statics.getOrCreate = async function (user: IUserDocument, co
 
     function getConversation() {
         return _this.findOne({
-            user: new Schema.Types.ObjectId(user._id),
-            contact: new Schema.Types.ObjectId(contact._id),
+            user: mongoose.Types.ObjectId(user._id),
+            contact: mongoose.Types.ObjectId(contact._id),
         }).populate([
             {path: "user", model: "User"},
             {path: "contact", model: "User"},

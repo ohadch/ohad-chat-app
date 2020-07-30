@@ -1,4 +1,5 @@
-import * as mongoose from "mongoose";
+// @ts-ignore
+import mongoose from "mongoose";
 import {IUserDocument, IUserModel} from "../types/interfaces";
 
 
