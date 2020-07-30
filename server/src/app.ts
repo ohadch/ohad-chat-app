@@ -1,8 +1,8 @@
-const {app, http, io} = require("./config");
+import {app, io} from "./config"
 
-const bodyParser = require('body-parser');
-const cors = require('cors')
-const SocketHandlerService = require("./services/SocketHandlerService");
+import * as bodyParser from 'body-parser'
+import * as cors from 'cors'
+import SocketHandlerService from "./services/SocketHandlerService"
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -17,5 +17,4 @@ app.use("/api", require("./api"))
 io.on('connection', (socket) => new SocketHandlerService(socket).handle());
 
 
-module.exports.app = app;
-module.exports.http = http;
+export * from "./config"
