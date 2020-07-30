@@ -16,5 +16,4 @@ app.use("/api", require("./api"))
 
 io.on('connection', (socket) => new SocketHandlerService(socket).handle());
 
-
-export * from "./config"
+export default app;

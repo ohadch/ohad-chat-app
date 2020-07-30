@@ -1,7 +1,7 @@
-const request = require("supertest");
+import request from "supertest";
 
-const app = require("../../app");
-const { expect } = require("chai");
+import app from "../../app";
+import { expect } from "chai";
 
 describe("User API", function () {
     describe("signup", function () {
@@ -17,7 +17,7 @@ describe("User API", function () {
                 })
                 .end(function (err, res) {
                     if (err) throw err;
-                    expect(res.status).to.be(200);
+                    expect(res.status).to.eq(200);
                 })
         })
 
