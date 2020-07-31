@@ -31,7 +31,7 @@ export default {
       return this.contact.isOnline
           ? "Online"
           : this.contact.lastSeen
-              ? `Last seen on ${new Date(this.contact.lastSeen).toUTCString()}`
+              ? `Last seen on ${new Date(this.contact.lastSeen).toString()}`
               : ""
     }
   }
