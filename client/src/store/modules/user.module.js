@@ -22,6 +22,7 @@ export default {
             dispatch(A_CHANGE_CONNECTION_STATUS, true);
         },
         [A_CHANGE_CONNECTION_STATUS]({ state }, isOnline) {
+
             this._vm.$socket.client.emit(SocketInputEvent.UserConnectionStatusChanged, {
                 userId: state.active._id,
                 connectionStatus: isOnline ? UserConnectionStatus.Online : UserConnectionStatus.Offline

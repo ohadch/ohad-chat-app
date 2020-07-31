@@ -11,11 +11,13 @@ export interface IUserDocument extends EnhancedDocuments {
     nickname: string;
     status: string;
     lastSeen: string;
+    activeSocketId: string
     isOnline: boolean;
 }
 
 export interface IUserModel extends Model<IUserDocument> {
     findByEmail(email: string): IUserDocument | null;
+    findBySocketId(socketId: string): IUserDocument | null;
 }
 
 export interface IMessageDocument extends EnhancedDocuments {

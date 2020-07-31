@@ -30,12 +30,6 @@ export default {
       user: "active"
     })
   },
-  beforeDestroy() {
-    if (!this.user) {
-      return;
-    }
-    this.$store.dispatch(`user/${A_CHANGE_CONNECTION_STATUS}`, false)
-  },
   watch: {
     user(val) {
       val

@@ -29,7 +29,7 @@ export default {
     connectivityStatus() {
       return this.contact.isOnline
           ? "Online"
-          : "Offline"
+          : `Last seen on ${new Date(this.contact.lastSeen).toUTCString()}`
     }
   }
 }

@@ -1,6 +1,7 @@
 export enum SocketInputEvent {
     Message = "message",
-    UserConnectionStatusChanged = "user_connection_status_changed"
+    UserConnectionStatusChanged = "user_connection_status_changed",
+    Disconnect = "disconnect"
 }
 
 export enum UserConnectionStatus {
