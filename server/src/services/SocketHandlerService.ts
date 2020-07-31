@@ -1,11 +1,9 @@
 import {Socket} from "socket.io";
 import {
     IMessageInputPayload,
-    IMessageOutputPayload,
     ISocketHandlerService,
     IUserConnectionStatusInputPayload,
     IUserConnectionStatusOutputPayload,
-    IUserDocument,
 } from "../types/interfaces";
 import {io} from "../config";
 import UserModel from "../models/User.model";
@@ -25,34 +23,28 @@ export default class SocketHandlerService implements ISocketHandlerService {
         this.socket.on(SocketInputEvent.Disconnect, this.handleSocketDisconnected.bind(this));
     }
 
-    public async handleMessageSent(message: IMessageInputPayload) {
+    public async handleMessageSent(inputMessage: IMessageInputPayload) {
         const [sender, recipient] = await Promise.all([
-            UserModel.findById(message.senderId),
-            UserModel.findById(message.recipientId),
+            UserModel.findById(inputMessage.senderId),
+            UserModel.findById(inputMessage.recipientId),
         ])
 
         if (!sender || !recipient) {
             throw new Error(`Either sender id ${sender?._id} or recipient ${recipient?._id} could not be found`)
         }
-        const messageDoc = new MessageModel({
-            text: message.text,
+
+        const message = new MessageModel({
+            text: inputMessage.text,
             sender: sender._id,
             recipient: recipient._id,
             sentAt: new Date().toISOString()
         })
 
         console.log("Sending a message to participants")
-        await messageDoc.save();
-        await messageDoc.saveOnParticipants();
+        await message.save();
+        await message.saveOnParticipants();
 
-        const messageFromServer: IMessageOutputPayload = {
-            text: message.text,
-            sender: sender._doc as IUserDocument,
-            recipient: recipient._doc as IUserDocument,
-            sentAt: new Date().toISOString()
-        }
-
-        io.emit('chat_message', messageFromServer);
+        io.emit(SocketOutputEvent.ChatMessage, message._doc);
     }
 
     public async handleUserConnectionStatusChanged(payload: IUserConnectionStatusInputPayload) {

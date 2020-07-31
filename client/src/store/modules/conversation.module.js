@@ -14,10 +14,10 @@ export default {
         conversations: []
     },
     actions: {
-        async [A_SEND_MESSAGE](_, {user, contact, text}) {
+        async [A_SEND_MESSAGE]({ rootState }, {contactId, text}) {
             this._vm.$socket.client.emit('message', {
-                senderId: user._id,
-                recipientId: contact._id,
+                senderId: rootState.user.active._id,
+                recipientId: contactId,
                 text
             });
         },

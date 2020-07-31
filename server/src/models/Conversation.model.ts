@@ -40,7 +40,7 @@ ConversationSchema.statics.getOrCreate = async function (userId: Types.ObjectId,
         }).populate([
             {path: "user", model: "User"},
             {path: "contact", model: "User"},
-        ]).exec();
+        ]).populate("messages").exec();
     }
 }
 

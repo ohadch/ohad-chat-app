@@ -25,8 +25,15 @@
             ...mapState("user", {
                 user: "active"
             }),
+            ...mapState("contacts", ["contacts"]),
+            sender() {
+              return this.contacts.find(contact => contact._id === this.message.sender)
+            },
+            recipient() {
+              return this.contacts.find(contact => contact._id === this.message.recipient)
+            },
             isSentByMe() {
-                return this.message.sender._id === this.user._id
+                return this.sender._id === this.user._id
             },
             isSentToMe() {
                 return !this.isSentByMe

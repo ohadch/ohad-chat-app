@@ -6,14 +6,6 @@ export interface IMessageInputPayload {
     recipientId: string,
 }
 
-
-export interface IMessageOutputPayload {
-    text: string,
-    sender: IUserDocument,
-    recipient: IUserDocument,
-    sentAt: string
-}
-
 export interface IUserConnectionStatusInputPayload {
     userId: string,
     connectionStatus: UserConnectionStatus

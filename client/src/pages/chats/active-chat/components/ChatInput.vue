@@ -8,7 +8,7 @@
 <script>
     import { mapState } from "vuex";
 
-    import {A_SEND_MESSAGE} from "../../../../store/actions/conversation.actions";
+    import {A_SEND_MESSAGE} from "@/store/actions/conversation.actions";
 
     export default {
         name: "ChatInput",
@@ -20,9 +20,6 @@
         computed: {
             ...mapState("conversation", {
                 conversation: "selected"
-            }),
-            ...mapState("user", {
-                user: "active"
             })
         },
         methods: {
@@ -30,8 +27,7 @@
                 if (!this.text) return;
 
                 this.$store.dispatch(`conversation/${A_SEND_MESSAGE}`, {
-                    user: this.user,
-                    contact: this.conversation.contact,
+                    contactId: this.conversation.contact._id,
                     text: this.text
                 })
 
