@@ -1,12 +1,12 @@
 import {M_ADD_MESSAGE} from "../mutations/conversation.mutations";
+import {A_MESSAGE_FROM_SERVER} from "@/store/actions/message.actions";
 
 export default {
     state: {
         messages: []
     },
     actions: {
-        socket_chatMessage({commit}, messageJson) {
-            const message = JSON.parse(messageJson)
+        [A_MESSAGE_FROM_SERVER]({commit}, message) {
             commit(`conversation/${M_ADD_MESSAGE}`, message)
         }
     }

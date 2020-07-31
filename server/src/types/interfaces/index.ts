@@ -1,10 +1,6 @@
 import {Socket} from "socket.io";
 import {Document, Model} from "mongoose";
-import * as express from "express";
 
-export interface IAuthenticatedRequest extends express.Request {
-    user: IUserDocument
-}
 
 export interface ISocketHandlerService {
     socket: Socket
@@ -37,8 +33,7 @@ export interface IMessageDocument extends EnhancedDocuments {
     seenAt?: string
 }
 
-export interface IMessageModel extends Model<IMessageDocument> {
-}
+export type IMessageModel = Model<IMessageDocument>
 
 export interface IConversationDocument extends EnhancedDocuments {
     user: IUserDocument;
@@ -48,4 +43,19 @@ export interface IConversationDocument extends EnhancedDocuments {
 
 export interface IConversationModel extends Model<IConversationDocument> {
     getOrCreate(user: IUserDocument, contact: IUserDocument): Promise<IConversationDocument>;
+}
+
+
+export interface IMessageFromClientPayload {
+    text: string,
+    senderId: string,
+    recipientId: string,
+}
+
+
+export interface IMessageFromServerPayload {
+    text: string,
+    sender: IUserDocument,
+    recipient: IUserDocument,
+    sentAt: string
 }

@@ -15,7 +15,11 @@ export default {
     },
     actions: {
         async [A_SEND_MESSAGE](_, {user, contact, text}) {
-            this._vm.$socket.client.emit('message', JSON.stringify({ user, contact, text }));
+            this._vm.$socket.client.emit('message', {
+                senderId: user._id,
+                recipientId: contact._id,
+                text
+            });
         },
         async [A_FETCH_CONVERSATIONS]({commit}) {
             const conversations = await conversationService.getConversations();

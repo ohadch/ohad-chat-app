@@ -23,7 +23,7 @@ async function request(method, endpoint, { params, body } = {}) {
     }
 
     let url = buildUrl(endpoint, params)
-    return await fetch(url, requestOptions).then(handleResponse);
+    return fetch(url, requestOptions).then(handleResponse);
 }
 
 
