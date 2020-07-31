@@ -4,6 +4,7 @@ import {A_CHANGE_CONNECTION_STATUS, A_LOGIN, A_LOGOUT, A_SIGN_UP} from "../actio
 import {M_LOGOUT, M_SET_ACTIVE_USER} from "../mutations/user.mutations";
 import {LOCALSTORAGE_KEY_ACTIVE_USER, LOCALSTORAGE_KEY_AUTH_TOKEN} from "@/consts";
 import {SocketInputEvent, UserConnectionStatus} from "../../enums";
+import {M_SET_SELECTED_CONVERSATION} from "@/store/mutations/conversation.mutations";
 
 
 export default {
@@ -30,6 +31,7 @@ export default {
         },
         [A_LOGOUT]({commit, dispatch}) {
             dispatch(A_CHANGE_CONNECTION_STATUS, false);
+            commit(`conversation/${M_SET_SELECTED_CONVERSATION}`, null, {root: true});
             commit(M_LOGOUT)
         }
     },
