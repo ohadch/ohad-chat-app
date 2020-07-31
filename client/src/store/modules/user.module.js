@@ -1,9 +1,9 @@
 import userService from "../../services/user.service";
 
-import {A_LOGIN, A_LOGOUT, A_SIGN_UP} from "../actions/user.actions";
+import {A_CHANGE_CONNECTION_STATUS, A_LOGIN, A_LOGOUT, A_SIGN_UP} from "../actions/user.actions";
 import {M_LOGOUT, M_SET_ACTIVE_USER} from "../mutations/user.mutations";
-import {LOCALSTORAGE_KEY_ACTIVE_USER, LOCALSTORAGE_KEY_AUTH_TOKEN} from "../../consts";
-
+import {LOCALSTORAGE_KEY_ACTIVE_USER, LOCALSTORAGE_KEY_AUTH_TOKEN} from "@/consts";
+import {SocketInputEvent, UserConnectionStatus} from "../../enums";
 
 
 export default {
@@ -16,11 +16,20 @@ export default {
             const user = await userService.signUp({firstName, lastName, email, nickname});
             commit(M_SET_ACTIVE_USER, user)
         },
-        async [A_LOGIN]({commit}, {email}) {
+        async [A_LOGIN]({commit, dispatch}, {email}) {
             const user = await userService.login({email});
             commit(M_SET_ACTIVE_USER, user)
+            dispatch(A_CHANGE_CONNECTION_STATUS, true);
         },
-        [A_LOGOUT]({commit}) {
+        [A_CHANGE_CONNECTION_STATUS]({ state }, isOnline) {
+
+            this._vm.$socket.client.emit(SocketInputEvent.UserConnectionStatusChanged, {
+                userId: state.active._id,
+                connectionStatus: isOnline ? UserConnectionStatus.Online : UserConnectionStatus.Offline
+            })
+        },
+        [A_LOGOUT]({commit, dispatch}) {
+            dispatch(A_CHANGE_CONNECTION_STATUS, false);
             commit(M_LOGOUT)
         }
     },

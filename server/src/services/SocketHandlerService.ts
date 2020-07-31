@@ -1,7 +1,16 @@
-import { Socket } from "socket.io";
-import {ISocketHandlerService} from "../types/interfaces";
+import {Socket} from "socket.io";
+import {
+    IMessageInputPayload,
+    IMessageOutputPayload,
+    ISocketHandlerService,
+    IUserConnectionStatusInputPayload,
+    IUserConnectionStatusOutputPayload,
+    IUserDocument,
+} from "../types/interfaces";
 import {io} from "../config";
-
+import UserModel from "../models/User.model";
+import {Types} from "mongoose";
+import {SocketInputEvent, SocketOutputEvent, UserConnectionStatus} from "../types/enums";
 
 export default class SocketHandlerService implements ISocketHandlerService {
     socket: Socket
@@ -10,23 +19,73 @@ export default class SocketHandlerService implements ISocketHandlerService {
         this.socket = socket
     }
 
-    public handle() : void {
-        this.socket.on('message', this.handleMessageSent);
-        this.socket.on('disconnect', this.handleDisconnection);
+    public handle(): void {
+        this.socket.on(SocketInputEvent.Message, this.handleMessageSent.bind(this));
+        this.socket.on(SocketInputEvent.UserConnectionStatusChanged, this.handleUserConnectionStatusChanged.bind(this));
+        this.socket.on(SocketInputEvent.Disconnect, this.handleSocketDisconnected.bind(this));
     }
 
-    public handleMessageSent(messageJson: string) : void {
-        const message = JSON.parse(messageJson);
+    public async handleMessageSent(message: IMessageInputPayload) {
+        const [sender, recipient] = await Promise.all([
+            UserModel.findOne({_id: Types.ObjectId(message.senderId)}),
+            UserModel.findOne({_id: Types.ObjectId(message.recipientId)}),
+        ])
 
-        io.emit('chat_message', JSON.stringify({
+        if (!sender || !recipient) {
+            throw new Error(`Either sender id ${sender?._id} or recipient ${recipient?._id} could not be found`)
+        }
+
+        const messageFromServer: IMessageOutputPayload = {
             text: message.text,
-            sender: message.user,
-            recipient: message.contact,
+            sender: sender._doc as IUserDocument,
+            recipient: recipient._doc as IUserDocument,
             sentAt: new Date().toISOString()
-        }));
+        }
+
+        io.emit('chat_message', messageFromServer);
     }
 
-    public handleDisconnection() : void {
-        io.emit('chat message', "----- Somebody just left the chat");
+    public async handleUserConnectionStatusChanged(payload: IUserConnectionStatusInputPayload) {
+        const user = await UserModel.findOne({_id: Types.ObjectId(payload.userId)})
+
+        if (!user) {
+            throw new Error(`User _id ${payload.userId} does not exist`)
+        }
+
+        switch (payload.connectionStatus) {
+            case UserConnectionStatus.Online:
+                user.isOnline = true
+                user.activeSocketId = this.socket.id;
+                break;
+            case UserConnectionStatus.Offline:
+                user.isOnline = false
+                user.lastSeen = new Date().toISOString()
+                user.activeSocketId = "";
+                break;
+            default:
+                throw new Error(`Handler for connection status is not implemented: ${payload.connectionStatus}`);
+        }
+
+        await user.save()
+        const outputPayload: IUserConnectionStatusOutputPayload = {
+            userId: user._id,
+            isOnline: user.isOnline,
+            lastSeen: user.lastSeen
+        }
+
+        io.emit(SocketOutputEvent.UserConnectionStatusChanged, outputPayload);
+    }
+
+    private async handleSocketDisconnected() {
+        const user = await UserModel.findBySocketId(this.socket.id);
+
+        if (!user) {
+            return
+        }
+
+        return this.handleUserConnectionStatusChanged({
+            userId: user._id,
+            connectionStatus: UserConnectionStatus.Offline
+        })
     }
 }

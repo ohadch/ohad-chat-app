@@ -1,0 +1,1 @@
+export const A_MESSAGE_FROM_SERVER = "socket_chatMessage"

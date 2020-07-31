@@ -34,11 +34,12 @@
             ...mapState("conversation", {
                 conversation: "selected"
             }),
+            ...mapState("contacts", ["contacts"]),
             messages() {
-                return this.conversation && this.conversation.messages;
+                return this.conversation.messages;
             },
             contact() {
-                return this.conversation && this.conversation.contact;
+                return this.contacts.find(contact => contact._id === this.conversation.contact._id)
             }
         },
         methods: {
