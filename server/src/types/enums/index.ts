@@ -1,4 +1,13 @@
-export enum SocketEvent {
+export enum SocketInputEvent {
     Message = "message",
-    Disconnection = "disconnect"
+    UserConnectionStatusChanged = "user_connection_status_changed"
+}
+
+export enum UserConnectionStatus {
+    Online = "ONLINE",
+    Offline = "OFFLINE"
+}
+
+export enum SocketOutputEvent {
+    UserConnectionStatus = "user_connection_status",
 }

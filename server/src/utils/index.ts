@@ -1,7 +1,6 @@
 import * as express from "express";
-// @ts-ignore
-import mongoose from "mongoose";
 import UserModel from "../models/User.model";
+import {Types} from "mongoose";
 
 export function mountRestrictedRouter(app: express.Express, route: string, router: express.Router) : void {
     app.use(route, async function (req, res, next) {
@@ -18,7 +17,7 @@ export function mountRestrictedRouter(app: express.Express, route: string, route
         }
 
         (req as any).user = user._doc;
-        (req as any).user!._id = mongoose.Types.ObjectId(_id);
+        (req as any).user!._id = Types.ObjectId(_id);
         next()
     })
     app.use(route, router)
