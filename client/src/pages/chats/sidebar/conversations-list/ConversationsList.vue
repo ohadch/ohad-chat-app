@@ -7,9 +7,7 @@
                 :conversation="conversation"
                 v-for="conversation in conversations"
         >
-            <v-list-item-avatar>
-                <v-img :src="conversation.contact.avatar"></v-img>
-            </v-list-item-avatar>
+            <ContactAvatar :list-item="true" :contact="conversation.contact" />
 
             <v-list-item-content>
                 <v-list-item-title v-html="conversation.contact.nickname"></v-list-item-title>
@@ -21,11 +19,13 @@
 </template>
 
 <script>
-    import {A_GET_OR_CREATE_CONVERSATION} from "../../../../store/actions/conversation.actions";
+    import {A_GET_OR_CREATE_CONVERSATION} from "@/store/actions/conversation.actions";
+    import ContactAvatar from "@/components/ContactAvatar";
 
     export default {
         name: "ConversationsList",
-        props: {
+      components: {ContactAvatar},
+      props: {
             conversations: {
                 type: Array,
                 required: true

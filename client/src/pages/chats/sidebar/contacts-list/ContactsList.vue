@@ -6,9 +6,7 @@
                 :key="contact._id"
                 @click="onContactSelected(contact)"
         >
-            <v-list-item-avatar>
-                <v-img :src="contact.avatar"></v-img>
-            </v-list-item-avatar>
+            <ContactAvatar :list-item="true" :contact="contact" />
 
             <v-list-item-content>
                 <v-list-item-title v-html="contact.nickname"></v-list-item-title>
@@ -20,10 +18,12 @@
 <script>
 
     import {A_GET_OR_CREATE_CONVERSATION} from "../../../../store/actions/conversation.actions";
+    import ContactAvatar from "@/components/ContactAvatar";
 
     export default {
         name: "ContactsList",
-        props: {
+      components: {ContactAvatar},
+      props: {
             contacts: {
                 type: Array,
                 required: true
