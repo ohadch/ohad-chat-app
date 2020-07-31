@@ -10,6 +10,7 @@ import {
 import {io} from "../config";
 import UserModel from "../models/User.model";
 import {SocketInputEvent, SocketOutputEvent, UserConnectionStatus} from "../types/enums";
+import MessageModel from "../models/Message.model";
 
 export default class SocketHandlerService implements ISocketHandlerService {
     socket: Socket
@@ -33,6 +34,15 @@ export default class SocketHandlerService implements ISocketHandlerService {
         if (!sender || !recipient) {
             throw new Error(`Either sender id ${sender?._id} or recipient ${recipient?._id} could not be found`)
         }
+        const messageDoc = new MessageModel({
+            text: message.text,
+            sender: sender._id,
+            recipient: sender._id,
+            sentAt: new Date().toISOString()
+        })
+
+        await messageDoc.save();
+        await messageDoc.saveOnParticipants();
 
         const messageFromServer: IMessageOutputPayload = {
             text: message.text,

@@ -27,6 +27,7 @@ export interface IMessageDocument extends EnhancedDocuments {
     sentAt?: string,
     receivedAt?: string,
     seenAt?: string
+    saveOnParticipants(): any
 }
 
 export type IMessageModel = Model<IMessageDocument>

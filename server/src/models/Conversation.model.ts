@@ -1,10 +1,9 @@
-import  mongoose from "mongoose";
-import { Schema } from "mongoose";
+import {model, Schema, Types} from "mongoose";
 import {IConversationDocument, IConversationModel, IUserDocument} from "../types/interfaces";
 
 const ConversationSchema = new Schema({
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    contact: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    contact: {type: Schema.Types.ObjectId, ref: 'User'},
     messages: [{
         type: Schema.Types.ObjectId,
         ref: 'Message'
@@ -31,8 +30,8 @@ ConversationSchema.statics.getOrCreate = async function (user: IUserDocument, co
 
     function getConversation() {
         return _this.findOne({
-            user: mongoose.Types.ObjectId(user._id),
-            contact: mongoose.Types.ObjectId(contact._id),
+            user: Types.ObjectId(user._id),
+            contact: Types.ObjectId(contact._id),
         }).populate([
             {path: "user", model: "User"},
             {path: "contact", model: "User"},
@@ -40,5 +39,5 @@ ConversationSchema.statics.getOrCreate = async function (user: IUserDocument, co
     }
 }
 
-const ConversationModel: IConversationModel = mongoose.model<IConversationDocument, IConversationModel>("Conversation", ConversationSchema, "conversations");
+const ConversationModel: IConversationModel = model<IConversationDocument, IConversationModel>("Conversation", ConversationSchema, "conversations");
 export default ConversationModel;
