@@ -1,4 +1,4 @@
-import {Document, Model} from "mongoose";
+import {Document, Model, Types} from "mongoose";
 
 export interface EnhancedDocuments extends Document {
     _doc: Document,
@@ -27,7 +27,8 @@ export interface IMessageDocument extends EnhancedDocuments {
     sentAt?: string,
     receivedAt?: string,
     seenAt?: string
-    saveOnParticipants(): any
+    saveOnParticipant(): Promise<any>
+    saveOnParticipants(): Promise<any>
 }
 
 export type IMessageModel = Model<IMessageDocument>
@@ -39,5 +40,5 @@ export interface IConversationDocument extends EnhancedDocuments {
 }
 
 export interface IConversationModel extends Model<IConversationDocument> {
-    getOrCreate(user: IUserDocument, contact: IUserDocument): Promise<IConversationDocument>;
+    getOrCreate(userId: Types.ObjectId, contactId: Types.ObjectId): Promise<IConversationDocument>;
 }

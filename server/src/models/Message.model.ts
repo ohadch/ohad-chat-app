@@ -1,5 +1,5 @@
-import {model, Schema} from "mongoose";
-import {IMessageDocument, IMessageModel, IUserDocument} from "../types/interfaces";
+import {model, Schema, Types} from "mongoose";
+import {IMessageDocument, IMessageModel} from "../types/interfaces";
 import ConversationModel from "./Conversation.model";
 
 const MessageSchema = new Schema({
@@ -11,19 +11,18 @@ const MessageSchema = new Schema({
     seenAt: String
 });
 
+
+MessageSchema.methods.saveOnParticipant = async function (senderId: Types.ObjectId, recipientId: Types.ObjectId) : Promise<any> {
+    const conversation = await ConversationModel.getOrCreate(senderId, recipientId);
+    conversation.messages.push(this._id);
+    return conversation.save();
+}
+
 MessageSchema.methods.saveOnParticipants = async function () : Promise<any> {
-    const message = this;
-
     return Promise.all([
-        saveOnParticipant(this.sender, this.recipient),
-        saveOnParticipant(this.recipient, this.sender),
+        this.saveOnParticipant(this.sender._id, this.recipient._id),
+        this.saveOnParticipant(this.recipient._id, this.sender._id),
     ])
-
-    async function saveOnParticipant(sender: IUserDocument, recipient: IUserDocument) {
-        const conversation = await ConversationModel.getOrCreate(sender, recipient);
-        conversation.messages.push(message);
-        return conversation.save();
-    }
 
 }
 

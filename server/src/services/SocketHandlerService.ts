@@ -37,10 +37,11 @@ export default class SocketHandlerService implements ISocketHandlerService {
         const messageDoc = new MessageModel({
             text: message.text,
             sender: sender._id,
-            recipient: sender._id,
+            recipient: recipient._id,
             sentAt: new Date().toISOString()
         })
 
+        console.log("Sending a message to participants")
         await messageDoc.save();
         await messageDoc.saveOnParticipants();
 

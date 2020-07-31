@@ -27,7 +27,7 @@ export async function createConversation(req, res) : Promise<Response> {
     }
 
     try {
-        const conversation = await Conversation.getOrCreate(user, contact)
+        const conversation = await Conversation.getOrCreate(user._id, contact._id)
         return res.json({ conversation });
     } catch (e) {
         console.error(e)
