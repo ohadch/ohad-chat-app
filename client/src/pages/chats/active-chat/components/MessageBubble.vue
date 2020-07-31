@@ -12,6 +12,7 @@
 
 <script>
     import { mapState } from "vuex";
+    import {COLORS} from "../../../../../../server/src/theme";
 
     export default {
         name: "MessageBubble",
@@ -39,7 +40,7 @@
                 return !this.isSentByMe
             },
             color() {
-                return this.isSentToMe ? "#CBE9F6": "#EFE8D6";
+                return this.isSentToMe ? COLORS.receivedMessage: COLORS.sentMessage;
             },
             isLeft() {
                 return this.isSentToMe
