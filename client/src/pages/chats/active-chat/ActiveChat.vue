@@ -36,7 +36,7 @@
             }),
             ...mapState("contacts", ["contacts"]),
             messages() {
-                return this.conversation.messages;
+                return this.conversation && this.conversation.messages;
             },
             contact() {
                 return this.contacts.find(contact => contact._id === this.conversation.contact._id)

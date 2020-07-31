@@ -12,7 +12,7 @@ export default {
  * @param { object|undefined } body
  * @returns {Promise<Response>}
  */
-async function request(method, endpoint, { params, body } = {}) {
+async function request(method, endpoint, {params, body} = {}) {
     const requestOptions = {
         method: method.toUpperCase(),
         headers: getDefaultHeaders()
@@ -45,8 +45,14 @@ function buildUrl(endpoint, params) {
 
 
 function getDefaultHeaders() {
-        const authToken = sessionStorage.getItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
-    return {"Content-Type": "application/json", token: authToken}
+    const options = {"Content-Type": "application/json"}
+    const authToken = sessionStorage.getItem(LOCALSTORAGE_KEY_AUTH_TOKEN)
+
+    if (authToken) {
+        options.token = authToken;
+    }
+
+    return options;
 }
 
 function handleResponse(response) {

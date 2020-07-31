@@ -9,7 +9,6 @@ import {
 } from "../types/interfaces";
 import {io} from "../config";
 import UserModel from "../models/User.model";
-import {Types} from "mongoose";
 import {SocketInputEvent, SocketOutputEvent, UserConnectionStatus} from "../types/enums";
 
 export default class SocketHandlerService implements ISocketHandlerService {
@@ -27,8 +26,8 @@ export default class SocketHandlerService implements ISocketHandlerService {
 
     public async handleMessageSent(message: IMessageInputPayload) {
         const [sender, recipient] = await Promise.all([
-            UserModel.findOne({_id: Types.ObjectId(message.senderId)}),
-            UserModel.findOne({_id: Types.ObjectId(message.recipientId)}),
+            UserModel.findById(message.senderId),
+            UserModel.findById(message.recipientId),
         ])
 
         if (!sender || !recipient) {
@@ -46,7 +45,7 @@ export default class SocketHandlerService implements ISocketHandlerService {
     }
 
     public async handleUserConnectionStatusChanged(payload: IUserConnectionStatusInputPayload) {
-        const user = await UserModel.findOne({_id: Types.ObjectId(payload.userId)})
+        const user = await UserModel.findById(payload.userId)
 
         if (!user) {
             throw new Error(`User _id ${payload.userId} does not exist`)
