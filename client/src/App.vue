@@ -1,40 +1,48 @@
 <template>
-    <v-app>
-        <v-main>
-            <router-view></router-view>
-        </v-main>
-        <BottomNavigation v-if="user"/>
-    </v-app>
+  <v-app>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+    <BottomNavigation v-if="user"/>
+  </v-app>
 </template>
 
 <script>
-    import {mapState} from "vuex";
+import {mapState} from "vuex";
 
-    import BottomNavigation from "./components/BottomNavigation";
+import BottomNavigation from "./components/BottomNavigation";
+import {A_CHANGE_CONNECTION_STATUS} from "@/store/actions/user.actions";
 
-    export default {
-        name: 'App',
-        components: {
-            BottomNavigation,
-        },
-        mounted() {
-            if (!this.user) {
-                this.$router.push("/login")
-                return;
-            }
-        },
-        computed: {
-            ...mapState("user", {
-                user: "active"
-            })
-        },
-        watch: {
-            user(val) {
-                val
-                    ? this.$router.push("/")
-                    : this.$router.push("/login")
+export default {
+  name: 'App',
+  components: {
+    BottomNavigation,
+  },
+  mounted() {
+    if (!this.user) {
+      return this.$router.push("/login").then();
+    } else {
+      this.$store.dispatch(`user/${A_CHANGE_CONNECTION_STATUS}`, true)
+    }
+  },
+  computed: {
+    ...mapState("user", {
+      user: "active"
+    })
+  },
+  beforeDestroy() {
+    if (!this.user) {
+      return;
+    }
+    this.$store.dispatch(`user/${A_CHANGE_CONNECTION_STATUS}`, false)
+  },
+  watch: {
+    user(val) {
+      val
+          ? this.$router.push("/")
+          : this.$router.push("/login")
 
-            }
-        }
-    };
+    }
+  }
+};
 </script>
