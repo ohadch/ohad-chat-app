@@ -10,5 +10,5 @@ export enum UserConnectionStatus {
 }
 
 export enum SocketOutputEvent {
-    UserConnectionStatus = "user_connection_status",
+    UserConnectionStatusChanged = "user_connection_status_changed"
 }

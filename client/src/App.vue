@@ -12,6 +12,8 @@ import {mapState} from "vuex";
 
 import BottomNavigation from "./components/BottomNavigation";
 import {A_CHANGE_CONNECTION_STATUS} from "@/store/actions/user.actions";
+import {SocketOutputEvent} from "@/enums";
+import {A_FETCH_CONTACTS} from "@/store/actions/contacts.actions";
 
 export default {
   name: 'App',
@@ -24,6 +26,10 @@ export default {
     } else {
       this.$store.dispatch(`user/${A_CHANGE_CONNECTION_STATUS}`, true)
     }
+
+    this.$socket.$subscribe(SocketOutputEvent.UserConnectionStatusChanged, () => {
+      this.$store.dispatch(`contacts/${A_FETCH_CONTACTS}`)
+    });
   },
   computed: {
     ...mapState("user", {

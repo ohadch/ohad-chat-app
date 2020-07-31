@@ -73,7 +73,7 @@ export default class SocketHandlerService implements ISocketHandlerService {
             lastSeen: user.lastSeen
         }
 
-        io.emit(SocketOutputEvent.UserConnectionStatus, outputPayload);
+        io.emit(SocketOutputEvent.UserConnectionStatusChanged, outputPayload);
     }
 
     private async handleSocketDisconnected() {
