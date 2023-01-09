@@ -21,9 +21,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      MONGO_INITDB_ROOT_DATABASE: chat
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      PORT: 8000
+      MONGO_URI: mongodb://localhost:27017/
+      MONGO_USER: root
+      MONGO_PASSWORD: example
     depends_on:
       - mongo
 
