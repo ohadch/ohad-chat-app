@@ -17,8 +17,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true
-  },
-  "files": [
-    "types.d.ts"
-  ]
+  }
 }

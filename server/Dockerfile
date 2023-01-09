@@ -16,11 +16,8 @@ RUN yarn install
 # Copy app files
 COPY . .
 
-# Build app
-RUN yarn build
-
 # Expose port
-EXPOSE 3000
+EXPOSE 8000
 
 # Start the app
-CMD [ "yarn", "serve:build" ]
+CMD [ "yarn", "start" ]
