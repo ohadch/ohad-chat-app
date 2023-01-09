@@ -22,7 +22,7 @@ services:
       - "8000:8000"
     environment:
       PORT: 8000
-      MONGO_URI: mongodb://localhost:27017/
+      MONGO_URI: mongodb://mongo:27017/
       MONGO_USER: root
       MONGO_PASSWORD: example
     depends_on:
@@ -33,6 +33,6 @@ services:
       context: client
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "3000:3000"
     depends_on:
       - server
