@@ -1,0 +1,15 @@
+mongodb:
+  auth:
+    rootPassword: example
+    username: root
+    password: example
+    database: chat
+  persistence:
+    enabled: true
+
+ohad-chat-app-server:
+  env:
+    PORT: 8000
+    MONGO_URI: mongodb://mongo:27017/
+    MONGO_USER: root
+    MONGO_PASSWORD: example

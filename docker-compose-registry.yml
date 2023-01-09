@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  docker-registry:
+    image: registry:2
+    restart: always
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./registry:/var/lib/registry
