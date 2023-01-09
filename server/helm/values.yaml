@@ -1,0 +1,4 @@
+image:
+  repository: localhost:5001/ohad-chat-app-server
+  tag: latest
+  pullPolicy: IfNotPresent
