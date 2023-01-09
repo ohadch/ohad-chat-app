@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+    - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_DATABASE: chat
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./volumes/mongo:/data/db
+
+  server:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      MONGO_URI: mongodb://mongo:27017/
+      MONGO_USER: root
+      MONGO_PASSWORD: example
+    depends_on:
+      - mongo
+
+  client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server

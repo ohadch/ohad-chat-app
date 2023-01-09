@@ -9,10 +9,6 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
-
 app.use("/api", api)
 
 io.on('connection', (socket) => new SocketHandlerService(socket).handle());

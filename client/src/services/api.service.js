@@ -22,25 +22,12 @@ async function request(method, endpoint, {params, body} = {}) {
         requestOptions.body = JSON.stringify(body);
     }
 
-    let url = buildUrl(endpoint, params)
-    return fetch(url, requestOptions).then(handleResponse);
-}
-
-
-/**
- * Returns the url with the query string
- * @param { string } endpoint
- * @param { object } params
- */
-function buildUrl(endpoint, params) {
-    if (!params) return endpoint;
-
-    const mockHost = "http://www.mockhost.com"
-    const fullUrl = `${mockHost}${endpoint}`
+    const host = "http://localhost:8000"
+    const fullUrl = `${host}${endpoint}`
     let url = new URL(fullUrl)
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-    let urlString = url.toString();
-    return urlString.slice(mockHost.length)
+    Object.keys(params || {}).forEach(key => url.searchParams.append(key, params[key]))
+
+    return fetch(url.toString(), requestOptions).then(handleResponse);
 }
 
 

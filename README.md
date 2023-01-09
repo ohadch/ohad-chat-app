@@ -1,12 +1,21 @@
 # Ohad's Chat
 
-## Stack
-- Backend: node + express + socket.io
-- Database: mongo + mongoose
-- Frontend: vuejs + vuetify
+A whatsapp-like chat app, built with node, vue, socket.io and mongodb.
 
+## Quick Start
 
-## Useful links
-- [Adding Typescript to Node project](https://khalilstemmler.com/blogs/typescript/node-starter-project/)
-- [Adding Eslint to Typescript project](https://khalilstemmler.com/blogs/typescript/eslint-for-typescript/)
-- [Typescript declaration file](https://medium.com/razroo/what-are-declaration-files-in-typescript-476c1c06f353)
+```bash
+make up
+```
+
+## Setup dev environment
+
+```shell
+make install
+
+# start the server
+cd server && yarn nodemon
+
+# start the client
+cd client && yarn serve
+```
