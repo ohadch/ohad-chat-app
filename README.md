@@ -1,8 +1,8 @@
-# Ohad's Chat
+# Ohad's Chat App
 
 A whatsapp-like chat app, built with node, vue, socket.io and mongodb.
 
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/17769668/211471426-7b12ced4-a7db-418a-a443-fc42417e3337.gif)
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/17769668/211489852-35270622-c1a3-4d8b-8b29-777a7983331c.gif)
 
 ## Quick Start
 
@@ -21,3 +21,15 @@ cd server && yarn nodemon
 # start the client
 cd client && yarn serve
 ```
+
+## Deployment
+
+### Local Kubernetes
+
+```shell
+make local-registry-up
+docker-compose build
+docker-compose push
+make up-k8s
+```
+
