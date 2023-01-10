@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ohad-chat-app-server-deployment
+  labels:
+      app: ohad-chat-app-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ohad-chat-app-server
+  template:
+    metadata:
+      labels:
+        app: ohad-chat-app-server
+    spec:
+      containers:
+      - name: ohad-chat-app-server
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8000
+        env:
+          {{- range $key, $value := .Values.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}

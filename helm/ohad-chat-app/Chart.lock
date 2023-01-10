@@ -1,0 +1,12 @@
+dependencies:
+- name: ohad-chat-app-client
+  repository: file://../../client/helm
+  version: 0.0.1
+- name: ohad-chat-app-server
+  repository: file://../../server/helm
+  version: 0.0.1
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 13.6.2
+digest: sha256:6328077b1f73357be2d3c130747fcd3df22d1a6d9e6a3c472b9df927b50de5d7
+generated: "2023-01-09T22:46:20.365633+02:00"

@@ -1,0 +1,4 @@
+apiVersion: v1
+name: ohad-chat-app-server
+version: 0.0.1
+description: A Helm chart for Ohad's chat app server
