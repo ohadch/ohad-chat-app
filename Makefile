@@ -1,4 +1,4 @@
-NAMESPACE=ohad-chat-app
+NAMESPACE=chat
 
 install:
 	# Install client from client directory
